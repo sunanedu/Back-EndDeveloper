@@ -3,12 +3,12 @@
 เอกสารนี้ให้คำอธิบายและขั้นตอนการทดสอบ RESTful API ที่พัฒนาด้วย PHP 8.2 บน XAMPP ในระบบ Windows 10 โดยใช้ Visual Studio Code (VS Code) และส่วนขยาย Thunder Client สำหรับทดสอบ Endpoint `http://127.0.0.1/api/products` ซึ่งจัดการข้อมูลในตาราง `products` ในฐานข้อมูล MySQL
 
 ## ภาพรวม
-API นี้มีสองการทำงานหลัก:
-- **GET `/api/products`**: ดึงข้อมูลสินค้าทั้งหมดจากตาราง `products` ในรูปแบบ JSON
-- **POST `/api/products`**: สร้างสินค้าใหม่ในตาราง `products` โดยรับข้อมูล JSON
+API นี้มีสองการทำงานหลัก 
+- **GET `/api/products`**  ดึงข้อมูลสินค้าทั้งหมดจากตาราง `products` ในรูปแบบ JSON
+- **POST `/api/products`**  สร้างสินค้าใหม่ในตาราง `products` โดยรับข้อมูล JSON
 
 ### โครงสร้างตาราง `products`
-ตาราง `products` ในฐานข้อมูล `api_db` มีโครงสร้างดังนี้:
+ตาราง `products` ในฐานข้อมูล `api_db` มีโครงสร้างดังนี้ 
 ```sql
 CREATE TABLE products (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -19,36 +19,36 @@ CREATE TABLE products (
 ```
 
 ### ไฟล์ที่เกี่ยวข้อง
-- **index.php**: จัดการคำขอ GET และ POST สำหรับ Endpoint `/api/products`
-- **config.php**: จัดการการเชื่อมต่อฐานข้อมูล MySQL
-- **.htaccess**: กำหนดกฎ rewrite เพื่อส่งคำขอทั้งหมดไปยัง `index.php`
-- โฟลเดอร์: `C:\xampp\htdocs\api` (จากข้อมูล error log ที่ระบุ)
+- **index.php**  จัดการคำขอ GET และ POST สำหรับ Endpoint `/api/products`
+- **config.php**  จัดการการเชื่อมต่อฐานข้อมูล MySQL
+- **.htaccess**  กำหนดกฎ rewrite เพื่อส่งคำขอทั้งหมดไปยัง `index.php`
+- โฟลเดอร์  `C:\xampp\htdocs\api` (จากข้อมูล error log ที่ระบุ)
 
 ## การตั้งค่าสภาพแวดล้อม
-1. **ติดตั้ง XAMPP**:
+1. **ติดตั้ง XAMPP** 
    - ดาวน์โหลด XAMPP (PHP 8.2) และติดตั้งที่ `C:\xampp`
    - เริ่ม Apache และ MySQL ใน XAMPP Control Panel
    - ตรวจสอบการทำงานที่ `http://localhost`
 
-2. **ตั้งค่าฐานข้อมูล**:
+2. **ตั้งค่าฐานข้อมูล** 
    - เข้า `http://localhost/phpmyadmin`
    - สร้างฐานข้อมูล `api_db`
    - รันคำสั่ง SQL เพื่อสร้างตาราง `products` (ด้านบน)
-   - เพิ่มข้อมูลตัวอย่าง:
+   - เพิ่มข้อมูลตัวอย่าง 
      ```sql
      INSERT INTO products (name, price, description) VALUES
      ('Laptop', 25000.00, 'High-performance laptop'),
      ('Smartphone', 15000.00, 'Latest model smartphone');
      ```
 
-3. **ตั้งค่าไฟล์**:
+3. **ตั้งค่าไฟล์** 
    - สร้างโฟลเดอร์ `C:\xampp\htdocs\api`
-   - สร้างไฟล์:
+   - สร้างไฟล์ 
      - `config.php` (การเชื่อมต่อฐานข้อมูล)
      - `index.php` (จัดการ API)
      - `.htaccess` (กำหนด rewrite rules)
 
-4. **ตั้งค่า Apache**:
+4. **ตั้งค่า Apache** 
    - เปิด `C:\xampp\apache\conf\httpd.conf`
    - ตรวจสอบว่า `LoadModule rewrite_module modules/mod_rewrite.so` เปิดใช้งาน (ไม่มี `#`)
    - ตรวจสอบว่า `<Directory "F:/xampp/htdocs">` มี `AllowOverride All`
@@ -151,14 +151,14 @@ echo json_encode($response);
 การทดสอบใช้ **Thunder Client** ใน VS Code ซึ่งเป็นส่วนขยายสำหรับทดสอบ API
 
 ### 1. ทดสอบ GET Request
-- **วัตถุประสงค์**: ดึงข้อมูลสินค้าทั้งหมด
-- **ขั้นตอน**:
+- **วัตถุประสงค์**  ดึงข้อมูลสินค้าทั้งหมด
+- **ขั้นตอน** 
   1. เปิด VS Code และ Thunder Client
   2. สร้าง request ใหม่
   3. ตั้ง Method เป็น **GET**
   4. ตั้ง URL เป็น `http://127.0.0.1/api/products`
   5. คลิก **Send**
-- **ผลลัพธ์ที่คาดหวัง**:
+- **ผลลัพธ์ที่คาดหวัง** 
   ```json
   [
       {"id": 1, "name": "Laptop", "price": "25000.00", "description": "High-performance laptop"},
@@ -166,18 +166,18 @@ echo json_encode($response);
   ]
   ```
 - **HTTP Status**: 200 OK
-- **กรณีผิดพลาด**:
-  - **500 Internal Server Error**: เกิดจากปัญหาการเชื่อมต่อฐานข้อมูล ตรวจสอบ `config.php` และ MySQL
-  - **404 Not Found**: Endpoint ไม่ถูกต้อง ตรวจสอบ `.htaccess` และ URL
+- **กรณีผิดพลาด** 
+  - **500 Internal Server Error**  เกิดจากปัญหาการเชื่อมต่อฐานข้อมูล ตรวจสอบ `config.php` และ MySQL
+  - **404 Not Found**  Endpoint ไม่ถูกต้อง ตรวจสอบ `.htaccess` และ URL
 
 ### 2. ทดสอบ POST Request
-- **วัตถุประสงค์**: สร้างสินค้าใหม่
-- **ขั้นตอน**:
+- **วัตถุประสงค์**  สร้างสินค้าใหม่
+- **ขั้นตอน** 
   1. ใน Thunder Client สร้าง request ใหม่
   2. ตั้ง Method เป็น **POST**
   3. ตั้ง URL เป็น `http://127.0.0.1/api/products`
   4. ในแท็บ **Body** เลือก **Raw** และ **JSON**
-  5. ป้อนข้อมูล:
+  5. ป้อนข้อมูล 
      ```json
      {
          "name": "Tablet",
@@ -187,50 +187,50 @@ echo json_encode($response);
      ```
   6. ตั้ง Header: `Content-Type: application/json`
   7. คลิก **Send**
-- **ผลลัพธ์ที่คาดหวัง**:
+- **ผลลัพธ์ที่คาดหวัง** 
   ```json
   {"message": "Product created successfully"}
   ```
 - **HTTP Status**: 201 Created
-- **การตรวจสอบ**:
+- **การตรวจสอบ** 
   - เข้า `http://localhost/phpmyadmin`
   - ตรวจสอบตาราง `products` ใน `api_db` ว่ามีแถวใหม่ (Tablet, 12000.00, Portable tablet)
-- **กรณีผิดพลาด**:
+- **กรณีผิดพลาด** 
   - **400 Bad Request**: ข้อมูล JSON ขาด `name` หรือ `price`
   - **500 Internal Server Error**: ปัญหาการ insert ลงฐานข้อมูล ตรวจสอบตาราง `products` และ `config.php`
   - **405 Method Not Allowed**: ใช้ HTTP Method อื่นที่ไม่ใช่ GET หรือ POST
 
 ## การแก้ไขปัญหาทั่วไป
-1. **ข้อผิดพลาด 404 Not Found**:
+1. **ข้อผิดพลาด 404 Not Found** 
    - ตรวจสอบว่า `.htaccess` อยู่ใน `C:\xampp\htdocs\api`
    - ตรวจสอบว่า `AllowOverride All` ใน `httpd.conf`
    - รีสตาร์ท Apache
-2. **ข้อผิดพลาด 500 Database Error**:
+2. **ข้อผิดพลาด 500 Database Error** 
    - ตรวจสอบว่า MySQL รันใน XAMPP
    - ตรวจสอบว่า `api_db` และตาราง `products` มีอยู่
    - รัน `http://127.0.0.1/api/config.php` เพื่อตรวจสอบการเชื่อมต่อ
-3. **Fatal Error จาก bindParam**:
+3. **Fatal Error จาก bindParam** 
    - ตรวจสอบว่าใช้ตัวแปร reference ใน `bindParam` (เช่น `$name`, `$price`)
-   - หากยังมีปัญหา ลองใช้ `bindValue`:
+   - หากยังมีปัญหา ลองใช้ `bindValue` 
      ```php
      $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
      ```
 
 ## การดีบัก
-- **ดู log**:
+- **ดู log** 
   - Apache: `C:\xampp\apache\logs\error.log`
   - PHP: `C:\xampp\php\logs\php_error_log`
-- **เพิ่ม debug ใน index.php**:
+- **เพิ่ม debug ใน index.php** 
   ```php
   error_log(print_r($request, true));
   // หรือ
   echo json_encode(["debug_path" => $path, "debug_request" => $request]); exit;
   ```
-- **ตรวจสอบ JSON input**:
+- **ตรวจสอบ JSON input** 
   - ใช้ Thunder Client ตรวจสอบว่า JSON body และ `Content-Type` ถูกต้อง
 
 ## หมายเหตุ
-- วันที่ทดสอบ: 6 มิถุนายน 2568
+- วันที่ทดสอบ  6 มิถุนายน 2568
 - ใช้ PHP 8.2.12 และ Apache 2.4.58 (จากข้อมูล error log ก่อนหน้า)
 - ตรวจสอบว่า XAMPP และ VS Code อัปเดตเป็นเวอร์ชันล่าสุด
 - หากมีปัญหาเพิ่มเติม บันทึกผลลัพธ์จาก Thunder Client หรือ error log เพื่อวิเคราะห์ต่อ
