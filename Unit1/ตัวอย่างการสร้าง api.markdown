@@ -22,11 +22,11 @@ CREATE TABLE products (
 - **index.php**: จัดการคำขอ GET และ POST สำหรับ Endpoint `/api/products`
 - **config.php**: จัดการการเชื่อมต่อฐานข้อมูล MySQL
 - **.htaccess**: กำหนดกฎ rewrite เพื่อส่งคำขอทั้งหมดไปยัง `index.php`
-- โฟลเดอร์: `F:\xampp\htdocs\api` (จากข้อมูล error log ที่ระบุ)
+- โฟลเดอร์: `C:\xampp\htdocs\api` (จากข้อมูล error log ที่ระบุ)
 
 ## การตั้งค่าสภาพแวดล้อม
 1. **ติดตั้ง XAMPP**:
-   - ดาวน์โหลด XAMPP (PHP 8.2) และติดตั้งที่ `F:\xampp`
+   - ดาวน์โหลด XAMPP (PHP 8.2) และติดตั้งที่ `C:\xampp`
    - เริ่ม Apache และ MySQL ใน XAMPP Control Panel
    - ตรวจสอบการทำงานที่ `http://localhost`
 
@@ -42,14 +42,14 @@ CREATE TABLE products (
      ```
 
 3. **ตั้งค่าไฟล์**:
-   - สร้างโฟลเดอร์ `F:\xampp\htdocs\api`
+   - สร้างโฟลเดอร์ `C:\xampp\htdocs\api`
    - สร้างไฟล์:
      - `config.php` (การเชื่อมต่อฐานข้อมูล)
      - `index.php` (จัดการ API)
      - `.htaccess` (กำหนด rewrite rules)
 
 4. **ตั้งค่า Apache**:
-   - เปิด `F:\xampp\apache\conf\httpd.conf`
+   - เปิด `C:\xampp\apache\conf\httpd.conf`
    - ตรวจสอบว่า `LoadModule rewrite_module modules/mod_rewrite.so` เปิดใช้งาน (ไม่มี `#`)
    - ตรวจสอบว่า `<Directory "F:/xampp/htdocs">` มี `AllowOverride All`
    - รีสตาร์ท Apache
@@ -202,7 +202,7 @@ echo json_encode($response);
 
 ## การแก้ไขปัญหาทั่วไป
 1. **ข้อผิดพลาด 404 Not Found**:
-   - ตรวจสอบว่า `.htaccess` อยู่ใน `F:\xampp\htdocs\api`
+   - ตรวจสอบว่า `.htaccess` อยู่ใน `C:\xampp\htdocs\api`
    - ตรวจสอบว่า `AllowOverride All` ใน `httpd.conf`
    - รีสตาร์ท Apache
 2. **ข้อผิดพลาด 500 Database Error**:
@@ -218,8 +218,8 @@ echo json_encode($response);
 
 ## การดีบัก
 - **ดู log**:
-  - Apache: `F:\xampp\apache\logs\error.log`
-  - PHP: `F:\xampp\php\logs\php_error_log`
+  - Apache: `C:\xampp\apache\logs\error.log`
+  - PHP: `C:\xampp\php\logs\php_error_log`
 - **เพิ่ม debug ใน index.php**:
   ```php
   error_log(print_r($request, true));
