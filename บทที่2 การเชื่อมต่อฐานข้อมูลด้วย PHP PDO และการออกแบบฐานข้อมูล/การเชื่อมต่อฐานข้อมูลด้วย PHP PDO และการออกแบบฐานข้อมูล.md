@@ -140,7 +140,7 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
 
 ### โครงสร้างโฟลเดอร์
 ```
-F:\xampp\htdocs\api\
+C:\xampp\htdocs\api\
 ├── config.php         # การเชื่อมต่อฐานข้อมูล
 ├── index.php          # Router หลัก
 ├── users.php          # จัดการ Endpoint /api/users
